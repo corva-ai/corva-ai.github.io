@@ -1,0 +1,734 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Tutorial - Deploy Back End App for Python &amp; Node</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="c55e5e8a-6807-4606-8a79-67d7bb507191" class="page sans"><header><img class="page-cover-image" src="Tutorial%20-%20Deploy%20Back%20End%20App%20for%20Python%20&amp;%20Node%20c55e5e8a680746068a7967d7bb507191/DevCenter_banner-2.png" style="object-position:center 21.4%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🚀</span></div><h1 class="page-title">Tutorial - Deploy Back End App for Python &amp; Node</h1></header><div class="page-body"><p id="7204231d-a5b2-4766-b7aa-d47794228c3c" class="">Originated By <span class="user">@Brandon Amos</span> </p><p id="b8d9afff-b8e2-45b2-9c58-2ddc492a919c" class="">Updated by <span class="user">@Michael Cortez</span> </p><p id="e32167f0-b293-40d0-910c-ed7397eeee6e" class="">Last Updated <time>@Feb 25, 2021 10:24 PM</time> </p><p id="d79505bf-f6f9-4cee-a9f3-185f60b5df45" class="">
+</p><nav id="416e6c53-2061-47ee-9418-59abc7497f87" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c1e6def5-6bc4-4736-be45-a6bab7a005bd">Overview</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#43228884-929d-4320-a60b-88d67b9630b8">Prerequisites</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b0106637-09ab-4652-b003-d71603d7bd51">Clone Pre-Built Back End App (If Applicable)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8fdcc307-28e6-46c0-9865-c4405e6fcd06">Creating an App in Dev Center</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#aab61f3d-f1ce-42eb-9c08-7ccba8028a84">Creating App in IDE or Terminal</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f8db5e49-2d13-41ea-a542-adc439d766cc">Create a New Data Set (If Applicable)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3ad5cbc6-220a-4821-8af8-dfa26b08f75d">Copy Existing App into Newly Created App (If Applicable)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#50560597-be4b-48f5-a437-9efe1933dbc7">Link App to Dataset</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2d7236c2-480c-4e37-bd53-fd6be9299ff8">Upload and Publish App to Dev Center</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b166b249-decc-4d5e-8016-cec7b036e0f8">Add App to an Asset</a></div></nav><h1 id="c1e6def5-6bc4-4736-be45-a6bab7a005bd" class="">Overview</h1><p id="5d340dcd-0365-4075-9dab-acb65cce74ef" class="">This guide will show you how to:</p><ul id="22741e68-2b23-43ca-90a2-039f3b720976" class="bulleted-list"><li>Create a back end app</li></ul><ul id="00125d99-abe6-401f-ac10-4dc97bdbfcf5" class="bulleted-list"><li>Create a new dataset</li></ul><ul id="9e3a7245-be96-46c9-93f5-10aabc293ff0" class="bulleted-list"><li>Copy an existing pre-built app</li></ul><ul id="92687e6b-95e8-4df0-95c0-9e8a70d9dc54" class="bulleted-list"><li>Connect to an existing dataset</li></ul><ul id="06182037-a6d7-4dfd-9d5e-ccdfeb153aa3" class="bulleted-list"><li>Deploy an app to the Dev Center</li></ul><ul id="28db6822-e876-42c5-973a-7a0d6a4a4769" class="bulleted-list"><li>Add an updated app version to the Dev Center</li></ul><ul id="81de236c-f564-4e77-97a3-4a1c9ea05a6e" class="bulleted-list"><li>Assign an app to an asset</li></ul><p id="342e142a-7be8-474e-8d63-44f9d7ee9d58" class="">
+</p><h1 id="43228884-929d-4320-a60b-88d67b9630b8" class="">Prerequisites</h1><ul id="e2c94b01-4dac-4f04-aa66-1f51b5d970d4" class="bulleted-list"><li>Account access to Corva Dev Center: michael.cortez@corva.ai</li></ul><ul id="f86df1e9-b236-47f1-b78e-79d050f1ec74" class="bulleted-list"><li>Corva GitHub repository access: <a href="https://github.com/corva-ai">https://github.com/corva-ai</a></li></ul><ul id="07aed120-dfcd-4317-af91-0f6cb50b66e8" class="bulleted-list"><li>Repository of your choice e.g. GitHub, Bitbucket, etc. </li></ul><ul id="a837c051-16e4-4724-bda3-19ab5ddd2ae4" class="bulleted-list"><li>Tech stack knowledge of Node.js, React, Python and Javascript</li></ul><ul id="caa56446-8c83-4235-b1b4-540069d72c7b" class="bulleted-list"><li>Understand basic Command Line Interface (CLI) commands for Linux or Windows</li></ul><ul id="a0d8e6f7-0b16-4fce-b3f7-20c62d0161c8" class="bulleted-list"><li>Integrated Development Environment (IDE) of your choice e.g. Visual Studio Code, PyCharm, etc.</li></ul><ul id="35b55ef8-52f4-4ba7-89ce-1741d26e523a" class="bulleted-list"><li>Download Git here: <em><a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a></em><em> </em></li></ul><ul id="c296d94a-3880-46fb-ba7a-b04b1add7fbc" class="bulleted-list"><li>Install Node.js here: <a href="https://nodejs.org/en/download/">https://nodejs.org/en/download/</a> </li></ul><p id="7b8c2eeb-4fa3-40be-b8a9-fad1ff898150" class="">
+</p><h1 id="b0106637-09ab-4652-b003-d71603d7bd51" class="">Clone Pre-Built Back End App (If Applicable)</h1><ul id="07be79a7-5d10-4a41-a3de-a9773a2f9224" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Choose a directory to store the app. </span></li></ul><ul id="89670bd6-11ab-486c-8008-ad32e5c11057" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">For Python, copy the following repository link: <a href="https://github.com/corva-ai/dev-center-gamma-depth-python.git">https://github.com/corva-ai/dev-center-gamma-depth-python.git</a> </span></li></ul><ul id="117e820a-dc13-446f-8643-7e8fd3ac00c3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">For Node, copy the following repository link: <a href="https://github.com/corva-ai/dev-center-gamma-depth-node.git">https://github.com/corva-ai/dev-center-gamma-depth-node.git</a></span></li></ul><ul id="45f9c9f9-3549-4b61-8def-13ea2d763806" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Input the following into the command line:</span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="6e00fbe4-4491-4cde-8fc4-b6e46d7964ae" class="code"><code>git clone https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>corva<span class="token operator">-</span>ai<span class="token operator">/</span>dev<span class="token operator">-</span>center<span class="token operator">-</span>gamma<span class="token operator">-</span>depth<span class="token operator">-</span>python<span class="token punctuation">.</span>git </code></pre><figure id="8816e562-47d7-48e2-9f00-afa81b74559d"><div class="source"><a href="Tutorial%20-%20Deploy%20Back%20End%20App%20for%20Python%20&amp;%20Node%20c55e5e8a680746068a7967d7bb507191/Screen_Recording_2021-02-16_at_3.41.20_PM.mov">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f45cbe28-61f2-4fae-bdf0-0402e2d82d32/Screen_Recording_2021-02-16_at_3.41.20_PM.mov</a></div></figure><ul id="514fac67-aa03-4a72-9946-d15df6f593a3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">You should have the following directory for the dev-center-gamma-depth app. </span></li></ul><figure id="b3b171ac-3e10-44ff-85b4-5df772cc63bf" class="image"><a href="Tutorial%20-%20Deploy%20Back%20End%20App%20for%20Python%20&amp;%20Node%20c55e5e8a680746068a7967d7bb507191/Screenshot_2021-02-25_222332.png"><img style="width:720px" src="Tutorial%20-%20Deploy%20Back%20End%20App%20for%20Python%20&amp;%20Node%20c55e5e8a680746068a7967d7bb507191/Screenshot_2021-02-25_222332.png"/></a></figure><p id="f4bc17d7-93d9-4167-a830-7ab3b16edc30" class="">
+</p><h1 id="8fdcc307-28e6-46c0-9865-c4405e6fcd06" class="">Creating an App in Dev Center</h1><figure id="87102e0f-69e6-4734-94f9-10e3246e768b"><div class="source"><a href="Tutorial%20-%20Deploy%20Back%20End%20App%20for%20Python%20&amp;%20Node%20c55e5e8a680746068a7967d7bb507191/Screen_Recording_2021-02-16_at_4.15.58_PM.mov">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/425d2d9f-cb5b-48a0-a6ce-7203088cc15e/Screen_Recording_2021-02-16_at_4.15.58_PM.mov</a></div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="aba8c036-d6c2-4fcf-a42f-e36e8f1f75a6"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Note: The app name used is app specific and used only for instructional purposes. </div></figure><ul id="45edf98c-18d3-4bb5-9523-9740128deb20" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Log into: <a href="https://app.corva.ai/login">https://app.corva.ai/login</a> </span></li></ul><ul id="38d399e2-60e8-4c2d-8e99-6072e6ce50a8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Navigate to the ribbon and click the <strong>&lt;/&gt;</strong> button to access Dev Center.</span></li></ul><ul id="f1b5534e-f966-4041-96f6-2cd8fd014539" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click + NEW APP button</span></li></ul><ul id="d23ed35b-1004-4861-a143-9e7b55be6ea4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click Backend radio button</span></li></ul><ul id="3c03f5b0-890f-42f5-a3f6-472474d6c297" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click NEXT button</span></li></ul><ul id="013becb9-ed9f-4d15-bf2a-7d40441cc97c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click stream radio button</span></li></ul><ul id="d7276dd1-ee48-4abd-9b8a-886d846c25ba" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click NEXT button</span></li></ul><ul id="338d6e90-74b0-46b0-a236-7471a591102e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Populate App Name field</span></li></ul><ul id="af81ca85-696b-4da1-8722-362f1e1d9544" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click Drilling radio button</span></li></ul><ul id="1d603763-64ac-4b93-83c4-d3a4bb219221" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Choose EnhancedWITS from dropdown menu</span></li></ul><ul id="a473db4b-e899-4c5a-b40f-1f0768285402" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click Analytics radio button</span></li></ul><ul id="74420fc0-3366-42b5-a6e9-b5eeb52ab0ee" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click NEXT button</span></li></ul><p id="84bda90a-fd0d-49a3-a9e8-314a8de3cf55" class="">
+</p><h1 id="aab61f3d-f1ce-42eb-9c08-7ccba8028a84" class="">Creating App in IDE or Terminal</h1><figure id="b71f4907-f80e-443b-8a52-497caf6b7fea"><div class="source"><a href="Tutorial%20-%20Deploy%20Back%20End%20App%20for%20Python%20&amp;%20Node%20c55e5e8a680746068a7967d7bb507191/Screen_Recording_2021-02-18_at_4.05.52_PM.mov">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1963e283-1ba1-45da-926a-7d2ad33ecc48/Screen_Recording_2021-02-18_at_4.05.52_PM.mov</a></div></figure><ul id="2f30ee89-eac7-4458-8ced-d827d6c55b64" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Within Dev Center / New App modal</span></li></ul><ul id="2afbf1f3-9e7d-473d-864e-1c3b3752f183" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Within Install the Command Line Tool section code snippet box, click on document icon to copy: npm i -g @corva/create-app</span></li></ul><ul id="2a9c7f44-f03f-4ada-b9cf-15128a83ce55" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open terminal</span></li></ul><ul id="6a1a3809-4d0d-403c-aa7d-0f1950223f22" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">In command line paste: </span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="14e74f34-b412-4ee9-9029-646db45d534d" class="code"><code>npm i <span class="token operator">-</span>g @corva<span class="token operator">/</span>create<span class="token operator">-</span>app</code></pre><ul id="f1850787-e82c-4524-a49c-596f9105cf64" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Press enter</span></li></ul><ul id="395f960b-2d1e-4619-9f3e-83a63d624ffb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Go back to Dev Center / New App modal</span></li></ul><ul id="8a47854a-94ed-4492-b89f-ad19a47b89e6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Within the Run and follow CLI instructions section, click Python radio button</span></li></ul><ul id="d15ad220-3f40-48b5-8230-39df49d5c0c2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Within the Run and follow CLI instructions section code snippet box, click on document icon to copy: </span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="795fee32-f92f-4560-b88d-2d68a4fbf1b5" class="code"><code>create<span class="token operator">-</span>corva<span class="token operator">-</span>app <span class="token number">20210216</span>_new_app <span class="token operator">--</span>appName <span class="token string">"20210216 New App"</span> <span class="token operator">--</span>segment <span class="token string">"drilling"</span> <span class="token operator">--</span>category <span class="token string">"analytics"</span> <span class="token operator">--</span>appKey <span class="token string">"big-data-energy.20210216_new_app.stream"</span> <span class="token operator">--</span>appType <span class="token string">"stream"</span> <span class="token operator">--</span>runtime <span class="token string">"python3.8"</span></code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="6ac6e81d-7a45-4654-87d3-ebf785199bf4"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Note: This code snippet is app specific and used only for instructional purposes. </div></figure><ul id="11ff283e-1cb1-499e-b080-84e9755f18e4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open terminal</span></li></ul><ul id="443e7e0c-0163-407e-ab08-b660ac7f2e56" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">In command line paste: </span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="02354f42-70e8-475a-8215-6213b7ab4622" class="code"><code>create<span class="token operator">-</span>corva<span class="token operator">-</span>app <span class="token number">20210216</span>_new_app <span class="token operator">--</span>appName <span class="token string">"20210216 New App"</span> <span class="token operator">--</span>segment <span class="token string">"drilling"</span> <span class="token operator">--</span>category <span class="token string">"analytics"</span> <span class="token operator">--</span>appKey <span class="token string">"big-data-energy.20210216_new_app.stream"</span> <span class="token operator">--</span>appType <span class="token string">"stream"</span> <span class="token operator">--</span>runtime <span class="token string">"python3.8"</span></code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="83bd0296-5996-4b62-bdd0-3b8d4c078e6a"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Note: This code snippet is app specific and used only for instructional purposes. </div></figure><ul id="b0725c9a-7ecd-4b68-b6c1-55bda23efa84" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">In the command line, edit the command line snippet - - segment to - - segments. See revised line below.</span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="895fb5e1-3776-4d78-ad4b-f857785f6f57" class="code"><code>create<span class="token operator">-</span>corva<span class="token operator">-</span>app <span class="token number">20210216</span>_new_app <span class="token operator">--</span>appName <span class="token string">"20210216 New App"</span> <span class="token operator">--</span>segments <span class="token string">"drilling"</span> <span class="token operator">--</span>category <span class="token string">"analytics"</span> <span class="token operator">--</span>appKey <span class="token string">"big-data-energy.20210216_new_app.stream"</span> <span class="token operator">--</span>appType <span class="token string">"stream"</span> <span class="token operator">--</span>runtime <span class="token string">"python3.8"</span></code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="fbaa433a-97c2-48e2-8d6f-9eb51162a8e6"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Note: This command line editing in the previous step will be an upgrade in next release. </div></figure><ul id="13bd2529-862d-406c-9b46-e34a35a7c241" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Press enter</span></li></ul><ul id="f540c13e-7d65-4807-b0b1-fd6824cf0f33" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Go back to Dev Center / New App modal</span></li></ul><ul id="9fde079b-f3e0-4af6-87b8-1e40a3b968f4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click on ADD NEW APP button</span></li></ul><p id="0f5ef468-dbec-47c9-81ba-7b0a873067f5" class="">
+</p><h1 id="f8db5e49-2d13-41ea-a542-adc439d766cc" class="">Create a New Data Set (If Applicable)</h1><figure id="f5efe6d0-1428-4739-871b-f44e5043a9ab"><div class="source"><a href="Tutorial%20-%20Deploy%20Back%20End%20App%20for%20Python%20&amp;%20Node%20c55e5e8a680746068a7967d7bb507191/Screen_Recording_2021-02-17_at_12.46.47_PM.mov">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/85935dcd-13eb-490b-9570-96bc81593294/Screen_Recording_2021-02-17_at_12.46.47_PM.mov</a></div></figure><ul id="eae05cd1-5a64-4699-9ca8-4242fa5a1a96" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Within the Dev Center - New App view, click on Datasets Explorer on top navbar</span></li></ul><ul id="922cfec2-642d-4203-9444-0c537f24d986" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click on Dataset Type - Time-Based or Depth-Based or Reference</span></li></ul><ul id="d6e61b03-5af7-4e5c-84bc-bb619a2aea09" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click on + NEW DATASET button in top right corner</span></li></ul><ul id="95dd7d86-5276-41d6-85e3-2ff32f98715f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Populate values for &quot;name&quot;: &quot;&quot;, &quot;description&quot;: &quot;&quot; and &quot;type&quot;: &quot;&quot; only.  Do not populate &quot;indexes&quot; or &quot;schema&quot;. See dataset template below. </span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="f5884d4f-feb2-4bc7-933f-839e5faafa52" class="code"><code><span class="token comment">//Dataset template</span>
+<span class="token punctuation">{</span>
+	<span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"big-data-energy#my-new-dataset"</span><span class="token punctuation">,</span>
+	<span class="token string">"description"</span><span class="token operator">:</span> <span class="token string">"my new data set"</span><span class="token punctuation">,</span>
+	<span class="token string">"type"</span><span class="token operator">:</span> <span class="token string">"time"</span><span class="token punctuation">,</span>
+	<span class="token string">"indexes"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+	<span class="token string">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="838e0512-b2ce-47f0-afc2-dd37a1c1914c"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Note: Dataset &quot;type&quot; will be the Dataset Type chosen in previous steps.  Dataset &quot;name&quot; will be needed for the key in future steps. </div></figure><ul id="3c3dd706-2379-4c15-8253-2b1ebd9a62ce" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click on SAVE button </span></li></ul><p id="04e4e0b7-e1dd-429f-b46c-197aa6eaa41f" class="">
+</p><h1 id="3ad5cbc6-220a-4821-8af8-dfa26b08f75d" class="">Copy Existing App into Newly Created App (If Applicable)</h1><figure id="6ea3f9c4-e3b3-4895-82e1-93c77d783875"><div class="source"><a href="Tutorial%20-%20Deploy%20Back%20End%20App%20for%20Python%20&amp;%20Node%20c55e5e8a680746068a7967d7bb507191/Screen_Recording_2021-02-18_at_4.44.24_PM.mov">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d2dc6a3a-b698-451e-8279-03e2bdf4486a/Screen_Recording_2021-02-18_at_4.44.24_PM.mov</a></div></figure><ul id="fb6bd5d5-044b-426b-b56f-4578af32dfb2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open Finder in Mac or Explorer in Windows</span></li></ul><ul id="c74cc445-c9cb-4568-93ff-0bda6ad30ed9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open directory of existing Corva app e.g. dev-center-gamma-depth-python</span></li></ul><ul id="a6bbb698-a639-4d59-a179-287b4fd21086" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Drill down to app type e.g. stream or scheduled</span></li></ul><ul id="401ff408-09e5-4512-990b-570cb336baae" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Copy the following files:</span><ul id="2ba7776b-8f2f-47a2-a0b6-bb6d4af4029c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">src</span></li></ul><ul id="7068a38c-b42c-4598-a693-c28809c98b8c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">lambda_py</span></li></ul><ul id="5e8db3c7-91c6-462b-ad5e-be2a4761aec9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">requirements.txt</span></li></ul></li></ul><ul id="208328cf-7d70-4f63-a0ec-8eaee7e397c7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open directory of newly created app e.g. 20210218_new_app</span></li></ul><ul id="1664bf37-437b-49f6-babe-251ae79b1816" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Paste and replace the three copied files</span></li></ul><p id="0aa324c1-98bd-4b19-915f-81189d0a799e" class="">
+</p><h1 id="50560597-be4b-48f5-a437-9efe1933dbc7" class="">Link App to Dataset</h1><figure id="9aaa2dbd-d2de-42f3-95a1-b9a738c8a6eb"><div class="source"><a href="Tutorial%20-%20Deploy%20Back%20End%20App%20for%20Python%20&amp;%20Node%20c55e5e8a680746068a7967d7bb507191/Screen_Recording_2021-02-19_at_1.49.38_PM.mov">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b9d26164-d59d-4718-9e2d-a51683f8da7d/Screen_Recording_2021-02-19_at_1.49.38_PM.mov</a></div></figure><ul id="12adf9b8-8620-4c52-af6a-8f40de699f6c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Copy the following code snippet template</span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="0f9e9be6-73b1-415b-99dc-ff712d7f6b7b" class="code"><code><span class="token comment">// Copy this dataset code snippet</span>
+<span class="token string">"my-provider.new-dataset-name"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"permissions"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"read"</span><span class="token punctuation">,</span>
+        <span class="token string">"write"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">"corva.data.drillstring"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"permissions"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"read"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span></code></pre><ul id="cf7926d9-112e-4d6f-ad9e-5b20c32065eb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open newly created app directory e.g. 20210218_new_app</span></li></ul><ul id="6a0b2520-fd1b-4f00-b0f0-974c7e3e7ec5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open the manifest.json file</span></li></ul><ul id="6b920247-0f52-451e-8e96-ecc050e04e9b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Paste the copied dataset code snippet into the &quot;datasets&quot; object  </span></li></ul><ul id="3b62eedf-af6a-4d8d-90cb-8615e36c92f4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Copy the &quot;my-provider.new-dataset-name&quot; from the &quot;key&quot; e.g. &quot;big-data-energy.20210218_new_app&quot;</span></li></ul><ul id="a3b54b34-f954-41b6-829b-5772775f6eea" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Paste the &quot;my-provider.new-dataset-name&quot; into the &quot;datasets&quot; object e.g. &quot;big-data-energy.20210218_new_app&quot;</span></li></ul><ul id="c8df460c-7669-4384-8d96-965df9c1d42d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">See before and after examples below.</span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="c3f85164-cccf-4152-89f6-9fdb7ee2ef13" class="code code-wrap"><code><span class="token comment">//Before updating key value pairs</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"format"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token string">"license"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"type"</span><span class="token operator">:</span> <span class="token string">"MIT"</span><span class="token punctuation">,</span>
+    <span class="token string">"url"</span><span class="token operator">:</span> <span class="token string">"https://www.oandgexample.com/license/"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">"developer"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"authors"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">"application"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"type"</span><span class="token operator">:</span> <span class="token string">"stream"</span><span class="token punctuation">,</span>
+    <span class="token string">"key"</span><span class="token operator">:</span> <span class="token string">"big-data-energy.20210218_new_app.stream"</span><span class="token punctuation">,</span>
+    <span class="token string">"visibility"</span><span class="token operator">:</span> <span class="token string">"private"</span><span class="token punctuation">,</span>
+    <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"20210218 New App"</span><span class="token punctuation">,</span>
+    <span class="token string">"category"</span><span class="token operator">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span>
+    <span class="token string">"segments"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"drilling"</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">"settings"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"entrypoint"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"file"</span><span class="token operator">:</span> <span class="token string">"lambda_function"</span><span class="token punctuation">,</span>
+      <span class="token string">"function"</span><span class="token operator">:</span> <span class="token string">"lambda_handler"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">"timeout"</span><span class="token operator">:</span> <span class="token number">120</span><span class="token punctuation">,</span>
+    <span class="token string">"memory"</span><span class="token operator">:</span> <span class="token number">128</span><span class="token punctuation">,</span>
+    <span class="token string">"runtime"</span><span class="token operator">:</span> <span class="token string">"python3.8"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">"environment"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">"datasets"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Paste dataset template here	</span>
+		<span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="81d3a84c-0d4f-4aeb-854b-d9e363070b40" class="code"><code><span class="token comment">// After updating key value pairs</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"format"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token string">"license"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"type"</span><span class="token operator">:</span> <span class="token string">"MIT"</span><span class="token punctuation">,</span>
+    <span class="token string">"url"</span><span class="token operator">:</span> <span class="token string">"https://www.oandgexample.com/license/"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">"developer"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"authors"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">"application"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"type"</span><span class="token operator">:</span> <span class="token string">"stream"</span><span class="token punctuation">,</span>
+		<span class="token comment">//Copy the "my-provider.new-dataset-name" from the "key"</span>
+    <span class="token string">"key"</span><span class="token operator">:</span> <span class="token string">"big-data-energy.20210218_new_app.stream"</span><span class="token punctuation">,</span>
+    <span class="token string">"visibility"</span><span class="token operator">:</span> <span class="token string">"private"</span><span class="token punctuation">,</span>
+    <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"20210218_new_app"</span><span class="token punctuation">,</span>
+    <span class="token string">"category"</span><span class="token operator">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span>
+    <span class="token string">"segments"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"drilling"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">"settings"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"entrypoint"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"file"</span><span class="token operator">:</span> <span class="token string">"lambda_function"</span><span class="token punctuation">,</span>
+      <span class="token string">"function"</span><span class="token operator">:</span> <span class="token string">"lambda_handler"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">"timeout"</span><span class="token operator">:</span> <span class="token number">120</span><span class="token punctuation">,</span>
+    <span class="token string">"memory"</span><span class="token operator">:</span> <span class="token number">128</span><span class="token punctuation">,</span>
+    <span class="token string">"runtime"</span><span class="token operator">:</span> <span class="token string">"python3.8"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">"environment"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string">"datasets"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+		<span class="token comment">// Paste and update the key with provider and dataset name</span>
+    <span class="token string">"big-data-energy.20210218_new_app"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"permissions"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"read"</span><span class="token punctuation">,</span>
+        <span class="token string">"write"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">"corva.data.drillstring"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"permissions"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"read"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre><ul id="84eed87a-e299-4e40-9fe2-a5ef6e2e458a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Copy dataset name e.g. 20210218_new_app</span></li></ul><ul id="63b7b845-0aa3-4797-b9af-16604b18a3b9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open <a href="http://configuration.py">configuration.py</a> file</span></li></ul><ul id="52feccea-5fc4-4f21-a1ec-07cbf57a54cd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Paste dataset name and replace existing dataset name </span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="606b0ea1-76aa-44a8-90a2-b7913f58d6c9" class="code"><code><span class="token keyword">class</span> <span class="token class-name">Settings</span><span class="token punctuation">(</span>pydantic<span class="token punctuation">.</span>BaseSettings<span class="token punctuation">)</span><span class="token operator">:</span>
+    provider<span class="token operator">:</span> str
+		<span class="token comment">//Paste newly created dataset name over existing name</span>
+    actual_gamma_depth_collection<span class="token operator">:</span> str <span class="token operator">=</span> <span class="token string">'20210218_new_app'</span>
+    drillstring_collection<span class="token operator">:</span> str <span class="token operator">=</span> <span class="token string">'data.drillstring'</span>
+    version<span class="token operator">:</span> int <span class="token operator">=</span> <span class="token number">1</span></code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="558b717e-e7f5-48a8-9369-75808ffa5562"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">At this point of the workflow, the app development can begin. </div></figure><h1 id="2d7236c2-480c-4e37-bd53-fd6be9299ff8" class="">Upload and Publish App to Dev Center</h1><figure id="9545a313-29a9-47ba-8234-e014d532b77b"><div class="source"><a href="Tutorial%20-%20Deploy%20Back%20End%20App%20for%20Python%20&amp;%20Node%20c55e5e8a680746068a7967d7bb507191/Screen_Recording_2021-02-18_at_5.21.51_PM.mov">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7535ec77-67a7-4758-9a57-3242a5de7984/Screen_Recording_2021-02-18_at_5.21.51_PM.mov</a></div></figure><ul id="9faca32d-f2eb-437b-8f95-0d381c609dba" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open Finder in Mac or Explorer in Windows</span></li></ul><ul id="17f0878d-905f-463e-ba63-c60598216641" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open directory of existing Corva app e.g. 20210218_new_app</span></li></ul><ul id="3c7f4899-a748-4a0e-8682-b26b00a4ad6a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Select and zip up the following files:</span><ul id="451618bf-f75f-475e-ba97-01d0618dfaa9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">lambda_py</span></li></ul><ul id="3446aa9f-3323-4269-b0fd-73ce94838811" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">manifest.json</span></li></ul><ul id="dc881238-f7de-43d5-b784-7b8643c52901" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">requirements.txt</span></li></ul><ul id="d20dd0ce-8017-4226-bd71-e9b69106ddab" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">src</span></li></ul></li></ul><ul id="9ad1935e-73bb-43f1-80f4-d6708ff7214d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open Dev Center / Apps / New App Name / Versions</span></li></ul><ul id="09e8dd0f-f5a6-4694-b54c-9323cb397146" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Drag and drop or Upload the newly zipped file</span></li></ul><ul id="64f888c4-10c9-43f4-8d7d-09f142acd4c1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Type in version notes (optional)</span></li></ul><ul id="0e2e7169-9898-452b-ba4b-bd7b126ee228" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click UPLOAD button</span></li></ul><ul id="ae8d882f-9642-4eb2-befa-a14dc4f3d479" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Allow time for app to be queued, processed, build and deploy</span></li></ul><ul id="1cd8b068-6279-4fb1-8db5-80cb4e06fba9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Once in draft status, click on PUBLISH button</span></li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="f62322f5-1d99-41c2-b8be-da7eadf23ba4"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">This section can be repeated for uploading new versions of the app. </div></figure><h1 id="b166b249-decc-4d5e-8016-cec7b036e0f8" class="">Add App to an Asset</h1><figure id="6d123941-47cd-4b4b-806d-9a937880a2b3"><div class="source"><a href="Tutorial%20-%20Deploy%20Back%20End%20App%20for%20Python%20&amp;%20Node%20c55e5e8a680746068a7967d7bb507191/Screen_Recording_2021-02-18_at_5.52.32_PM.mov">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0dd2b27a-05c7-4120-aa21-ffc6c82336ae/Screen_Recording_2021-02-18_at_5.52.32_PM.mov</a></div></figure><ul id="b3a36e37-ea3b-4735-b38b-68b125fdaffe" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Navigate to the Corva main page via top left Corva icon in navbar</span></li></ul><ul id="f715dbed-84b2-4595-9444-8e3829eee961" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click on Assets link in navbar</span></li></ul><ul id="ea0d5d05-2c9f-4419-8e4e-f800caab0b60" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Select and click on the Asset name or Search for desired Asset</span></li></ul><ul id="65078ed2-4c67-44cd-b668-f2f337de50e3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click on Data &amp; Settings icon in navbar</span></li></ul><ul id="2b28b6ed-3816-4cce-a8da-8bd749aa8c18" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Within the General Info page, click on the kabob menu at top right </span></li></ul><ul id="988d9fcf-a22c-48aa-b677-3f56b1ea90e5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click on Well Streams from drop down menu</span></li></ul><ul id="95805188-169f-4439-a8e2-91c8c43ad81b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Select Time or Depth</span></li></ul><ul id="4c7bd8d3-d13b-40ac-97b4-806162f926f3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click on Well Stream Asset name</span></li></ul><ul id="7f0fa134-ad74-4b33-bd2e-0bf0ecde9492" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Within the Streams / App Stream Asset Name page, click on + button</span></li></ul><ul id="64decb8b-fbef-4640-9ecc-e36d69e87dfb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Within App Store, search or filter to locate the newly created app</span></li></ul><ul id="49568308-c787-46cb-aca1-17e1313e4d35" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click the + ADD button on the newly created app card</span></li></ul><ul id="e78dd1d7-e959-458e-b33e-a1b7f1901773" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Newly created app should now appear in Installed Apps</span></li></ul></div></article></body></html>

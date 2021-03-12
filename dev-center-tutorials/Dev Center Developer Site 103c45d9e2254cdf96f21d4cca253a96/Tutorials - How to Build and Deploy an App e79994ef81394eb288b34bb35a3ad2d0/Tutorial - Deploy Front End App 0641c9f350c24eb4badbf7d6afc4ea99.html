@@ -1,0 +1,659 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Tutorial - Deploy Front End App </title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0641c9f3-50c2-4eb4-badb-f7d6afc4ea99" class="page sans"><header><img class="page-cover-image" src="Tutorial%20-%20Deploy%20Front%20End%20App%200641c9f350c24eb4badbf7d6afc4ea99/DevCenter_banner-2.png" style="object-position:center 19.020000000000003%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🚀</span></div><h1 class="page-title">Tutorial - Deploy Front End App </h1></header><div class="page-body"><p id="2748584b-faec-4633-92bc-3fc2bcd596af" class="">Originated By <span class="user">@Brandon Amos</span> </p><p id="1cd0a4cf-833d-4e2f-900f-f462c56802d6" class="">Updated by <span class="user">@Michael Cortez</span> </p><p id="7cc9ea1a-01b7-4642-97ad-4159f18b4b50" class="">Last Updated <time>@Feb 25, 2021 9:23 PM</time> </p><p id="656697e2-6763-40f0-bb05-ce412bb7720e" class="">
+</p><nav id="747afc2b-a453-437a-a01a-52e45f366921" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#770573b9-d47a-48a8-a4f6-d756981e8087">Overview</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e67330a6-d7b8-425f-9bdf-c57a75da9896">Prerequisites</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6d2413d4-c9b4-4ab3-a694-69749d620bd0">Clone Pre-Built Front End App (If Applicable)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ffafe747-5685-4367-870a-8e740de9be82">Creating an App in Dev Center</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c2325486-b717-40ec-9935-1efd7453d62c">Creating App in IDE or Terminal</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4dc33219-9548-4404-8f0a-2f82e511c3b9">Copy Existing App into Newly Created App (If Applicable)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#518e5038-761e-4b29-9d36-ba489e8955aa">Link App to Dataset</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5f929ca3-f304-4a70-bcae-b31e779ce89a">Upload and Publish App to Dev Center</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#aa49f094-8922-4c29-b872-8e9c2764571d">Add App to an Asset</a></div></nav><h1 id="770573b9-d47a-48a8-a4f6-d756981e8087" class="">Overview</h1><p id="433f18ae-574a-443b-9578-c467ce46bf83" class="">This guide will show you how to:</p><ul id="8d2e0b88-de7d-4f3f-934e-0c744b86e010" class="bulleted-list"><li>Create a front end app</li></ul><ul id="02e3ffa0-7e49-4f3e-aa61-6e5ab9a14e80" class="bulleted-list"><li>Copy an existing pre-built app</li></ul><ul id="58bd1dc5-825c-42e7-a48c-4e1c4eaab118" class="bulleted-list"><li>Connect to an existing dataset</li></ul><ul id="20c17cbe-d838-4f92-805d-09ddbbbbc442" class="bulleted-list"><li>Deploy an app to the Dev Center</li></ul><ul id="05f443e6-5776-4877-987b-006dfcbcc0e6" class="bulleted-list"><li>Add an updated app version to the Dev Center</li></ul><ul id="437d7329-e2b6-4780-b1cb-8528e5163f62" class="bulleted-list"><li>Assign an app to an asset</li></ul><p id="d6c30db9-c9a2-4fad-94f0-20b487b39d9b" class="">
+</p><h1 id="e67330a6-d7b8-425f-9bdf-c57a75da9896" class="">Prerequisites</h1><ul id="ab8ef996-3013-4abc-9397-628eab74fc47" class="bulleted-list"><li>Account access to Corva Dev Center: michael.cortez@corva.ai</li></ul><ul id="4855aa4d-106d-434c-83fa-d539eb364b13" class="bulleted-list"><li>Corva GitHub repository access: <a href="https://github.com/corva-ai">https://github.com/corva-ai</a> </li></ul><p id="37884a1e-422f-47e1-be01-43f6f9c44e89" class="">
+</p><ul id="b9ae4a99-f116-4d94-8c74-944994246f1f" class="bulleted-list"><li>Repository of your choice e.g. GitHub, Bitbucket, etc. </li></ul><ul id="03afa056-0f91-4042-93fc-1bad775a9045" class="bulleted-list"><li>Tech stack knowledge of React Hooks and JavaScript</li></ul><ul id="8c33260c-7b33-4fb3-961c-4261e600df24" class="bulleted-list"><li>Understand basic Command Line Interface (CLI) commands for Linux or Windows</li></ul><ul id="b8d0e954-5d69-4f4d-9775-8c143aca2727" class="bulleted-list"><li>Integrated Development Environment (IDE) of your choice e.g. Visual Studio Code, PyCharm, etc.</li></ul><ul id="44f7f3fe-a921-4bc7-a410-f8bd10cf4eb9" class="bulleted-list"><li>Download Git here: <em><a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a></em><em> </em></li></ul><ul id="a35008a7-581a-4752-aef7-25331e520b02" class="bulleted-list"><li>Install Yarn</li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="6de08f7b-b407-4f1a-a8db-3957857c085a" class="code"><code>npm install <span class="token operator">--</span>global yarn</code></pre><h1 id="6d2413d4-c9b4-4ab3-a694-69749d620bd0" class="">Clone Pre-Built Front End App (If Applicable)</h1><ul id="2dfe97e3-6fa5-4d98-b750-2499b6938a60" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Choose a directory to store the app. </span></li></ul><ul id="63d73b83-f2a8-45dc-993e-bd741b56fec6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Copy the following repository link: <a href="https://github.com/corva-ai/corva-example-ui-apps.git">https://github.com/corva-ai/corva-example-ui-apps.git</a></span></li></ul><ul id="08c10586-bb63-4757-99ea-7221c86b1340" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Input the following into the command line:</span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="d99b370c-6d7c-4f33-a5f2-a98f20d3e31a" class="code"><code>git clone https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>corva<span class="token operator">-</span>ai<span class="token operator">/</span>corva<span class="token operator">-</span>example<span class="token operator">-</span>ui<span class="token operator">-</span>apps<span class="token punctuation">.</span>git </code></pre><figure id="41c5f426-312e-4b3b-bd98-839295852d88"><div class="source"><a href="Tutorial%20-%20Deploy%20Front%20End%20App%200641c9f350c24eb4badbf7d6afc4ea99/Media1.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c7811f7d-774c-42f7-a305-d9ebd5aee0f3/Media1.mp4</a></div></figure><ul id="592d7dec-5b4a-4722-a9f9-77e97f6e0ceb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">You should have the following directory for the corva-example-ui-apps. </span></li></ul><figure id="f475274a-87b6-494a-9416-4989cdd6a91f" class="image"><a href="Tutorial%20-%20Deploy%20Front%20End%20App%200641c9f350c24eb4badbf7d6afc4ea99/sample_gamma_depth_2_23_2021_12_48_44_PM.png"><img style="width:672px" src="Tutorial%20-%20Deploy%20Front%20End%20App%200641c9f350c24eb4badbf7d6afc4ea99/sample_gamma_depth_2_23_2021_12_48_44_PM.png"/></a></figure><p id="eff5ffcc-7085-4574-b25c-8142f4b64d15" class="">
+</p><h1 id="ffafe747-5685-4367-870a-8e740de9be82" class="">Creating an App in Dev Center</h1><figure id="32d5dcc1-eef2-44c1-84ac-0bf7ee227034"><div class="source"><a href="Tutorial%20-%20Deploy%20Front%20End%20App%200641c9f350c24eb4badbf7d6afc4ea99/Media2.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/61d2e5a5-2917-46b1-bc57-0fd8988350da/Media2.mp4</a></div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e5e9ef1a-3333-456e-ac4f-772c3bcacfa2"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Note: The app name used is app specific and used only for instructional purposes. </div></figure><ul id="8f4d781e-bcdb-4e92-8117-a0839257bb37" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Log into: <a href="https://app.corva.ai/login">https://app.corva.ai/login</a> </span></li></ul><ul id="a11bf71b-7d41-4fc6-887f-eb7d6772b70f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Navigate to the ribbon and click the <strong>&lt;/&gt;</strong> button to access Dev Center.</span></li></ul><ul id="4d9483a0-37c3-4183-a172-96dee48ce8fb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click + NEW APP button</span></li></ul><ul id="71c95c03-6a18-4d4d-b5eb-bf47f17b4bb8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click Frontend radio button</span></li></ul><ul id="5973561a-38e3-48df-aea2-4d44650d1956" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click NEXT button</span></li></ul><ul id="ea1df560-91f5-4501-91a1-b39fc294c4c9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Populate App Name field</span></li></ul><ul id="2dde9a0a-734c-494a-9267-bd8401083e7d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click Drilling radio button</span></li></ul><ul id="a06ecad4-c44a-43fb-aa0d-8c4d4a76acec" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click the applicable Category radio button</span></li></ul><ul id="3e14eadc-1847-4c88-b9ae-ad3d3a80b497" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click NEXT button</span></li></ul><p id="12e2612d-77b1-4829-a28d-1a86d6a1b4f5" class="">
+</p><h1 id="c2325486-b717-40ec-9935-1efd7453d62c" class="">Creating App in IDE or Terminal</h1><figure id="ce8590d3-4a42-430a-86f2-a1b7a10a8f94"><div class="source"><a href="Tutorial%20-%20Deploy%20Front%20End%20App%200641c9f350c24eb4badbf7d6afc4ea99/Media3.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9cd25a56-f962-4407-a008-b901492fef89/Media3.mp4</a></div></figure><ul id="db56d01f-398b-4777-bab8-1dbe9b0f1ea7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Within Dev Center / New App modal</span></li></ul><ul id="fba6b991-d2e0-40ca-ac8c-b0c6c094b6d1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Within Install the Command Line Tool section code snippet box, click on document icon to copy: npm i -g @corva/create-app</span></li></ul><ul id="ac7d88de-0f6f-4b28-80e1-3dec9b718454" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open terminal</span></li></ul><ul id="7bd3ebc4-be44-49c4-b6fb-6ff89bbd27c9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">In command line paste: </span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="00f23717-496e-4e94-a5ba-d0fe2032b4a9" class="code"><code>npm i <span class="token operator">-</span>g @corva<span class="token operator">/</span>create<span class="token operator">-</span>app</code></pre><ul id="65b1d903-baae-4381-9e0c-c881af20a937" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Press enter</span></li></ul><ul id="1004bcd6-28e3-4d5c-a634-34bd93c18215" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Go back to Dev Center / New App modal</span></li></ul><ul id="57c31b33-540c-43f0-847c-778f522db0a5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Within the Run and follow CLI instructions section code snippet box, click on document icon to copy: </span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="97a3499c-ae50-4b0c-8fa5-0ee20d050f61" class="code"><code>create<span class="token operator">-</span>corva<span class="token operator">-</span>app <span class="token number">20210225</span>_new_app <span class="token operator">--</span>appName <span class="token string">"20210225 New App"</span> <span class="token operator">--</span>segment <span class="token string">"drilling"</span> <span class="token operator">--</span>category <span class="token string">"asset"</span> <span class="token operator">--</span>appKey <span class="token string">"dctest.20210225_new_app.stream"</span> <span class="token operator">--</span>appType <span class="token string">"ui"</span></code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="a3515e65-ead1-424b-833e-91fcbff8a7fe"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Note: This code snippet is app specific and used only for instructional purposes. </div></figure><ul id="5be602f0-6d8a-4910-97a6-5c30bfb6c107" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open terminal</span></li></ul><ul id="4fb30672-2627-4798-9e3f-91d8ca9d6a32" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">In command line paste: </span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="8533c33e-8b43-46ca-89d1-64e79cbd1ef5" class="code"><code>create<span class="token operator">-</span>corva<span class="token operator">-</span>app <span class="token number">20210225</span>_new_app <span class="token operator">--</span>appName <span class="token string">"20210225 New App"</span> <span class="token operator">--</span>segment <span class="token string">"drilling"</span> <span class="token operator">--</span>category <span class="token string">"asset"</span> <span class="token operator">--</span>appKey <span class="token string">"dctest.20210225_new_app.stream"</span> <span class="token operator">--</span>appType <span class="token string">"ui"</span></code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1029adcf-5cc2-4b8e-9bf2-d0207baeee97"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Note: This code snippet is app specific and used only for instructional purposes. </div></figure><ul id="7530efea-6ee2-4ebb-a420-0399478de079" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">In the command line, edit the command line snippet  - - segment to - - segments and add - -runtime &quot;ui&quot;. See revised line below.</span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="02b91d7b-ab13-4125-96a7-61c5f6479152" class="code"><code>create<span class="token operator">-</span>corva<span class="token operator">-</span>app <span class="token number">20210225</span>_new_app <span class="token operator">--</span>appName <span class="token string">"20210225 New App"</span> <span class="token operator">--</span>segments <span class="token string">"drilling"</span> <span class="token operator">--</span>category <span class="token string">"asset"</span> <span class="token operator">--</span>appKey <span class="token string">"dctest.20210225_new_app.stream"</span> <span class="token operator">--</span>appType <span class="token string">"ui"</span> <span class="token operator">--</span>runtime <span class="token string">"ui"</span></code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="3ed755f9-64b6-4fcd-b545-ef0130362f84"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Note: This command line editing in the previous step will be an upgrade in next release. </div></figure><ul id="f834dc07-55a9-461a-a5b6-c7269e576f12" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Press enter</span></li></ul><ul id="a27a8b10-f7c4-4d0a-b231-7b0eb5cf70f9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Go back to Dev Center / New App modal</span></li></ul><ul id="5050545e-f87f-4c11-9c5e-ba0f6cfe40a3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click on ADD NEW APP button</span></li></ul><p id="84d23c48-190c-4e95-821e-75ce3c62c042" class="">
+</p><h1 id="4dc33219-9548-4404-8f0a-2f82e511c3b9" class="">Copy Existing App into Newly Created App (If Applicable)</h1><figure id="23f3d17e-f2c7-444d-89f8-c1db4243d825"><div class="source"><a href="Tutorial%20-%20Deploy%20Front%20End%20App%200641c9f350c24eb4badbf7d6afc4ea99/Media4.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e1299d28-8159-481c-a334-9f722c8d0f6d/Media4.mp4</a></div></figure><ul id="543dc891-a23c-4cdb-a883-03b7a2c61359" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open Finder in Mac or Explorer in Windows</span></li></ul><ul id="3e4476b4-cf93-48d2-b963-fdce45b12f72" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open directory of existing Corva app e.g. corva-example-ui-apps</span></li></ul><ul id="f15f1b39-6528-4d12-a78c-e49b876a6446" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Drill down to app name e.g. sample_gamma_depth</span></li></ul><ul id="64ca1068-f788-42c5-99c7-1d1d717cba44" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Copy the following file:</span><ul id="8da82c37-5e4c-470e-bc5a-f3cee937d104" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">src</span></li></ul></li></ul><ul id="da15944e-b7e8-4901-a8c7-0bde7690fd82" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open directory of newly created app e.g. 20210225_new_app</span></li></ul><ul id="8b225b3d-c6ff-4d95-af1f-f603bf332aab" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Paste and replace the copied file</span></li></ul><p id="1f935e14-c3d5-4497-b587-652ff26bebeb" class="">
+</p><h1 id="518e5038-761e-4b29-9d36-ba489e8955aa" class="">Link App to Dataset</h1><figure id="2ef8666a-5f29-493d-9a0d-7fbedc3002df"><div class="source"><a href="Tutorial%20-%20Deploy%20Front%20End%20App%200641c9f350c24eb4badbf7d6afc4ea99/Media5.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/766418f7-80d4-4d47-84af-57fdbf6f42df/Media5.mp4</a></div></figure><ul id="de290652-bdbb-4ba5-b543-32fdf6511b34" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open newly created app directory e.g. 20210224gammav5</span></li></ul><ul id="a84ec904-030f-4c0e-9146-791da3858af3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open the apiCalls.js file</span></li></ul><ul id="a17b580a-accf-4c8f-b785-a323d3da9260" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Replace the const collectionName = &#x27;actual_gamma_app&#x27; with desired collection name. Save file. See code snippet. </span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="3fd12851-588f-41e8-ae19-1a873ae94ac9" class="code code-wrap"><code><span class="token comment">//Before updating collection name in apiCalls.js</span>
+<span class="token keyword">const</span> collectionName <span class="token operator">=</span> <span class="token string">'actual-gamma-depth'</span><span class="token punctuation">;</span>
+
+<span class="token comment">//After updating collection name in apiCall.js</span>
+<span class="token keyword">const</span> collectionName <span class="token operator">=</span> <span class="token string">'20210224gammav4'</span><span class="token punctuation">;</span></code></pre><ul id="9aea402d-c280-4aeb-8e1a-c7dd95ec71d2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open the subscription.js file</span></li></ul><ul id="97519a12-40d3-4a79-9184-209c4c6d5188" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Replace the collection: &#x27;actual-gamma-depth&#x27; with desired collection name. Save file. See code snippet.</span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="d8bdd4bc-9da4-40b7-bb4e-ae8541646803" class="code"><code><span class="token comment">// Before updating the collection name</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">getGammaSubscription</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">assetId<span class="token punctuation">,</span> provider</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    provider<span class="token punctuation">,</span>
+    assetId<span class="token punctuation">,</span>
+    behavior<span class="token operator">:</span> <span class="token string">'accumulate'</span><span class="token punctuation">,</span>
+    collection<span class="token operator">:</span> <span class="token string">'actual-gamma-depth'</span><span class="token punctuation">,</span>
+    params<span class="token operator">:</span> <span class="token punctuation">{</span> limit<span class="token operator">:</span> <span class="token number">10000</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// After updating the collection name</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">getGammaSubscription</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">assetId<span class="token punctuation">,</span> provider</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    provider<span class="token punctuation">,</span>
+    assetId<span class="token punctuation">,</span>
+    behavior<span class="token operator">:</span> <span class="token string">'accumulate'</span><span class="token punctuation">,</span>
+    collection<span class="token operator">:</span> <span class="token string">'20210224gammav4'</span><span class="token punctuation">,</span>
+    params<span class="token operator">:</span> <span class="token punctuation">{</span> limit<span class="token operator">:</span> <span class="token number">10000</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="290290e0-e01d-4850-801c-4cd165b15767"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">At this point of the workflow, the app development can begin. </div></figure><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="07f3c7ae-204c-44c2-b965-5538f5f134f2" class="code"><code><span class="token comment">// In order to see your front end react app in http://localhost:8080/app run: </span>
+yarn start</code></pre><h1 id="5f929ca3-f304-4a70-bcae-b31e779ce89a" class="">Upload and Publish App to Dev Center</h1><figure id="03fd0c3d-a965-437d-ad4e-9d5d3984587c"><div class="source"><a href="Tutorial%20-%20Deploy%20Front%20End%20App%200641c9f350c24eb4badbf7d6afc4ea99/Media6.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ccdd8c83-45eb-4ec1-aaa8-155b2d678be8/Media6.mp4</a></div></figure><ul id="9c765e50-d235-47b3-8676-f6f0b105cd84" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">In the command line type the following</span></li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="5b653c08-f222-4785-8647-fc501aafed7a" class="code"><code>yarn zip</code></pre><ul id="7609c21e-9895-4c55-aa86-d9d243b156c5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Open Dev Center / Apps / New App Name / Versions</span></li></ul><ul id="0248f39a-d2ba-4e7a-b8af-f8ae7b167eae" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Drag and drop or Upload the newly zipped file</span></li></ul><ul id="9ede2161-a118-415f-a294-465cbb99ab78" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Type in version notes (optional)</span></li></ul><ul id="909d2723-93b5-4d1a-88ea-86fe7cfa4a2b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click UPLOAD button</span></li></ul><ul id="79d8a06e-70cb-47a6-94e9-ce6d7a68b6a2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Allow time for app to be queued, processed, build and deploy</span></li></ul><ul id="e527f1dc-0b74-4419-a6ed-f8a21bd1ec54" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Once in draft status, click on PUBLISH button</span></li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="a9b48349-91d2-4dbd-846b-0f70a10207ed"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">This section can be repeated for uploading new versions of the app. </div></figure><h1 id="aa49f094-8922-4c29-b872-8e9c2764571d" class="">Add App to an Asset</h1><figure id="f93bdc27-c6e9-48d4-bf8e-f8a513761cab"><div class="source"><a href="Tutorial%20-%20Deploy%20Front%20End%20App%200641c9f350c24eb4badbf7d6afc4ea99/Media7.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d01b4124-bcbd-40d0-9879-ea95982c639c/Media7.mp4</a></div></figure><ul id="664162c0-b2f8-4f04-b899-5c59df3eca53" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Navigate to the Corva main page via top left Corva icon in navbar</span></li></ul><ul id="bb323558-d208-4df4-95e2-77d21becd115" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click on Assets link in navbar</span></li></ul><ul id="8148e549-c7a8-429c-ab6d-be5f29059f30" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Select and click on the Asset name or Search for desired Asset</span></li></ul><ul id="2f03503b-4684-48f3-9867-2f105c854581" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Within the Asset Dashboard scroll down to bottom of page</span></li></ul><ul id="6c85d83a-b4a5-4257-b4d2-c16ae7ee38d6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click on the +ADD APP button</span></li></ul><ul id="d019f71c-5834-4329-853e-46e76aafa0ac" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Within App Store, search or filter to locate the newly created app</span></li></ul><ul id="35dee366-1902-44be-a680-5992a9580677" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Click the + ADD button on the newly created app card</span></li></ul><ul id="b22cac1e-b8ff-4c05-a68e-cb7388dd2e92" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Newly created app should now appear in the Asset Dashboard</span></li></ul></div></article></body></html>

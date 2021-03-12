@@ -1,0 +1,896 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Jupyter Notebooks And Code Snippets</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1fb256cb-a9be-4b66-b6fc-b2344e6c8fd9" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📚</span></div><h1 class="page-title">Jupyter Notebooks And Code Snippets</h1></header><div class="page-body"><h1 id="6f660dcf-f185-4bcc-9473-eee947a2e5ea" class="">Links to Jupyter Notebooks:</h1><p id="03b5f1f0-5d76-432f-903c-876f8f08f588" class="">Code snippets and example tutorials for using the Corva SDK and Corva API.</p><p id="6ea5cca0-3e7c-4e61-85dd-025b81c4233d" class="">Contains examples of how to do basic actions, like get assets, get wits, etc.</p><p id="92d8f5e9-afdc-473f-9bef-141371ddf695" class="">Shows metadata and mongo data. </p><h1 id="b7d911ee-82ad-413e-92eb-48ff002e3aec" class="">Python SDK:</h1><p id="ef9d973f-88de-437d-acb6-4898a8dd698e" class="">Corva python-sdk is a framework for building stream, scheduled and task apps.</p><ul id="d75b6954-9fbb-49b2-b9ed-f543ff0934d6" class="bulleted-list"><li><a href="https://github.com/corva-ai/python-sdk">https://github.com/corva-ai/python-sdk</a></li></ul><p id="4ea930cf-c3fe-493d-9416-403851c0e02e" class="">Learn how to use the Corva Python SDK with these code snippets and walkthrough tutorials.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="acdca6e9-cdb2-455d-99fb-eee8757293ac" class="code"><code><span class="token comment"># get a single asset (by asset_id)</span>
+
+<span class="token comment"># get list of multiple assets</span>
+
+<span class="token comment"># get wits for one asset</span>
+
+<span class="token comment"># get wits summary for one asset</span>
+
+<span class="token comment"># get completion data</span>
+
+<span class="token comment"># get metrics data</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'hello world'</span><span class="token punctuation">)</span></code></pre><p id="636f85e1-a4d2-4ea8-9649-e48a27f56e8b" class=""><strong>Jupyter Notebook:</strong></p><p id="99610dcd-230d-42ea-9a61-fea1f85498c9" class="">embedded doc</p><h1 id="e64c3301-abf6-4d14-831f-9b3ede0b42b7" class="">Node.js SDK:</h1><p id="17725c3b-dcb3-4932-add5-0131b2154d7f" class="">Corva Node-sdk is a framework for building stream, scheduled and task apps.</p><ul id="823671c0-f249-4285-a427-7df39ab2a03e" class="bulleted-list"><li>link</li></ul><p id="14e6d094-d5c9-4225-833f-34a8b13eacb4" class="">Learn how to use the Corva Node.js SDK with these code snippets and walkthrough tutorials.</p><p id="17139206-33a2-410b-8c1a-500a034871a2" class=""><strong>Jupyter Notebook:</strong></p><p id="76366238-4af1-47e8-85c3-26415f1c5976" class="">embedded doc</p><h1 id="c70dfa68-54e7-4430-89dc-6578bac2cb8b" class="">Corva API:</h1><p id="0f152442-df42-4dd5-9cad-f8fd9935c6b0" class="">Learn how to navigate the Corva API via the requests library with these code snippets and walkthrough tutorials.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="bf7128b0-2237-48a4-8ad7-36ade5b773f2" class="code"><code><span class="token comment"># To get started using the API, you will need to import a couple of libraries</span>
+<span class="token keyword">import</span> os
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> json
+<span class="token keyword">import</span> requests
+<span class="token keyword">import</span> logging</code></pre><p id="02f1405c-e916-4868-84fb-52b7ddaee108" class=""><strong>Authorization:</strong></p><p id="bc89ce37-be70-4391-bd7f-25875de86127" class="">How to get authorization with an API Key.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="6a103b04-c7e6-4697-8722-0520b26aa7d1" class="code"><code><span class="token comment"># declaring api key...good practice to store as an environment variable if sharing docs</span>
+<span class="token comment"># place your api key here</span>
+CORVA_API_KEY<span class="token operator">=</span><span class="token string">'user-example-api-key-1231asf3243232'</span>
+
+auth <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'Authorization'</span><span class="token punctuation">:</span> os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span>CORVA_API_KEY<span class="token punctuation">]</span><span class="token punctuation">}</span>
+
+<span class="token comment"># if you do not want to store the key in your environment variables please use this:</span>
+auth <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'Authorization'</span><span class="token punctuation">:</span> <span class="token string">'API '</span> <span class="token operator">+</span> CORVA_API_KEY<span class="token punctuation">}</span></code></pre><p id="ae2eff88-4e93-4f62-8ce6-e0e0e0c459d4" class="">How to get authorization with a JWT token.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="aa767671-0ba7-4669-b2c3-f5fb12e4da99" class="code"><code><span class="token comment"># Fill in the URL, email and password to access your JWT token.</span>
+
+<span class="token comment"># fill in the base url here, this is the url to corva.</span>
+API_BASE_URL <span class="token operator">=</span> <span class="token string">"https://api.corva.ai"</span>
+<span class="token comment"># fill in your email and password here</span>
+email <span class="token operator">=</span> <span class="token string">"user.name@corva.ai"</span>
+password <span class="token operator">=</span> <span class="token string">"myPassword"</span>
+
+<span class="token comment"># *************** DO NOT EDIT BELOW THIS LINE: ***************</span>
+LOGGING_LEVEL <span class="token operator">=</span> os<span class="token punctuation">.</span>getenv<span class="token punctuation">(</span><span class="token string">'LOGGING_LEVEL'</span><span class="token punctuation">,</span> <span class="token string">'INFO'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token punctuation">)</span>
+logging<span class="token punctuation">.</span>basicConfig<span class="token punctuation">(</span><span class="token builtin">format</span><span class="token operator">=</span><span class="token string">'%(asctime)s - %(levelname)s - %(message)s'</span><span class="token punctuation">,</span> datefmt<span class="token operator">=</span><span class="token string">"%Y-%m-%dT%H:%M:%S%z"</span><span class="token punctuation">,</span> level<span class="token operator">=</span>LOGGING_LEVEL<span class="token punctuation">)</span>
+logger <span class="token operator">=</span> logging<span class="token punctuation">.</span>getLogger<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+user_token_uri <span class="token operator">=</span> <span class="token string">'{}/v1/user_token'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>API_BASE_URL<span class="token punctuation">)</span>
+post_request <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token string">"auth"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token string">"email"</span><span class="token punctuation">:</span> email<span class="token punctuation">,</span> <span class="token string">"password"</span><span class="token punctuation">:</span> password <span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+logger<span class="token punctuation">.</span>info<span class="token punctuation">(</span>user_token_uri<span class="token punctuation">)</span>
+logger<span class="token punctuation">.</span>info<span class="token punctuation">(</span>json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>post_request<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Get JWT Token</span>
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    r <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>user_token_uri<span class="token punctuation">,</span>
+                    headers<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'Content-Type'</span><span class="token punctuation">:</span> <span class="token string">'application/json'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    data<span class="token operator">=</span>json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>post_request<span class="token punctuation">)</span>
+                    <span class="token punctuation">)</span>
+    response <span class="token operator">=</span> r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    jwt_token <span class="token operator">=</span> response<span class="token punctuation">[</span><span class="token string">'jwt'</span><span class="token punctuation">]</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>jwt_token<span class="token punctuation">)</span>
+<span class="token keyword">except</span><span class="token punctuation">:</span>
+    logger<span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">"Exception"</span><span class="token punctuation">)</span>
+    <span class="token keyword">raise</span>
+
+<span class="token comment"># Use the JWT Token as Authorization.</span>
+auth <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'Authorization'</span><span class="token punctuation">:</span> <span class="token string">'Bearer {}'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>jwt_token<span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre><p id="51eae9d4-0038-4791-872d-544e1d458e3c" class="">For more in depth instructions on Authorization Please view this Jupyter notebook:</p><figure id="217d9154-7c7d-49e7-9035-43e19223177e"><a href="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/290c5fa1-1a47-48b1-9f67-6e9359c9422e/API_Demo_Authentication_(JWT_Or_API_Key)_(1).html" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title"></div></div><div class="bookmark-href">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/290c5fa1-1a47-48b1-9f67-6e9359c9422e/API_Demo_Authentication_(JWT_Or_API_Key)_(1).html</div></div></a></figure><h2 id="e43889e7-f332-4f01-a43b-fd49bc6b12c7" class="">Basic API Queries:</h2><p id="7a682f51-8b5a-48b3-917a-9249d694a6ca" class="">Information on basic API queires with the Corva API can be found below or in the Jupyter notebook.</p><figure id="a8177515-684f-4c13-891b-3e3eedc3f5aa"><a href="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b3eb87af-0366-4249-8cf9-93b0654c434b/API_Demo_(BASICS)_V1_(1).html" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title"></div></div><div class="bookmark-href">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b3eb87af-0366-4249-8cf9-93b0654c434b/API_Demo_(BASICS)_V1_(1).html</div></div></a></figure><p id="5d0934e2-29cf-4153-96a0-4f405b9e5876" class=""><strong>Get Single Asset:</strong></p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="1cefd89b-3f52-4432-aeba-e495a5dccf83" class="code"><code>API_BASE_URL <span class="token operator">=</span> <span class="token string">"https://api.corva.ai"</span>
+
+<span class="token comment">## GET a well with asset id:</span>
+assetId <span class="token operator">=</span> <span class="token string">"10020009"</span>
+url <span class="token operator">=</span> API_BASE_URL<span class="token operator">+</span><span class="token string">"/v2/assets/"</span> <span class="token operator">+</span> assetId
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">'data'</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre><p id="42a47117-4bc6-4fe2-9095-59577ce729d1" class=""><strong>Get Asset Lists:</strong></p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="a4abf46a-54d7-4c20-8f1b-0a4d03e2adf5" class="code"><code>API_BASE_URL <span class="token operator">=</span> <span class="token string">"https://api.corva.ai"</span>
+
+<span class="token comment">## GET Current Company Information</span>
+companies_uri <span class="token operator">=</span> API_BASE_URL <span class="token operator">+</span> <span class="token string">"/v1/companies"</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>companies_uri<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">## GET Asset = Well List</span>
+assets_uri <span class="token operator">=</span> API_BASE_URL <span class="token operator">+</span> <span class="token string">"/v2/assets?order=asc&amp;per_page=1000&amp;sort=name&amp;types[]=well"</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>assets_uri<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">## GET Asset = Rig List</span>
+assets_uri <span class="token operator">=</span> API_BASE_URL <span class="token operator">+</span> <span class="token string">"/v2/assets?order=asc&amp;per_page=1000&amp;sort=name&amp;types[]=rig"</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>assets_uri<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">## GET Well List</span>
+wells_uri <span class="token operator">=</span> API_BASE_URL <span class="token operator">+</span> <span class="token string">"/v2/wells?order=asc&amp;per_page=1000&amp;sort=name"</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>wells_uri<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre><p id="f1e74259-6ff4-4308-8fb3-fb26be16de67" class=""><strong>Get List of Wellnames:</strong></p><p id="49b77fc7-7139-42d0-afcc-270c22556c68" class="">If you do not have an asset id, this function will help you find your well by wellname.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="d2bc4a0f-7546-4f56-8647-f5bdcc361019" class="code"><code><span class="token keyword">def</span> <span class="token function">query_corva_wells</span><span class="token punctuation">(</span>query<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    url <span class="token operator">=</span> API_BASE_URL <span class="token operator">+</span> <span class="token string">"/v1/assets"</span>
+    page <span class="token operator">=</span> <span class="token number">1</span>
+    output_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        params <span class="token operator">=</span> <span class="token punctuation">{</span>
+            <span class="token string">"order"</span><span class="token punctuation">:</span> <span class="token string">"asc"</span><span class="token punctuation">,</span>
+            <span class="token string">"page"</span><span class="token punctuation">:</span> page<span class="token punctuation">,</span>
+            <span class="token string">"per_page"</span><span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+            <span class="token string">"search"</span><span class="token punctuation">:</span> query<span class="token punctuation">,</span>
+            <span class="token string">"sort"</span><span class="token punctuation">:</span> <span class="token string">"name"</span><span class="token punctuation">,</span>
+            <span class="token string">"types[]"</span><span class="token punctuation">:</span> <span class="token string">"well"</span>
+        <span class="token punctuation">}</span>
+        r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> params<span class="token operator">=</span>params<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">)</span>
+        resp <span class="token operator">=</span> r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>resp<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+            output_list<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>resp<span class="token punctuation">)</span>
+            page <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">break</span>
+    <span class="token keyword">return</span> pd<span class="token punctuation">.</span>json_normalize<span class="token punctuation">(</span>output_list<span class="token punctuation">)</span>
+
+query_corva_wells<span class="token punctuation">(</span><span class="token string">"My_Test_Well"</span><span class="token punctuation">)</span></code></pre><p id="4b8ebff1-366a-4af8-af9c-6030a96d729f" class="">Considerations: Notice in the example above that matching is case insenstive....also notice in the example below that it will consider letter combinations in the search, hence don&#x27;t necessarily need left to write matching.</p><p id="e559b0d4-5f3d-47b5-8455-8d536423a971" class="">If you want to only access the asset ID number, see modification below.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="9ca47aa6-dadc-4d2d-972e-eed9d75116b6" class="code"><code><span class="token keyword">def</span> <span class="token function">query_corva_wells</span><span class="token punctuation">(</span>query<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    url <span class="token operator">=</span> API_BASE_URL <span class="token operator">+</span> <span class="token string">"/v1/assets"</span>
+    page <span class="token operator">=</span> <span class="token number">1</span>
+    output_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        params <span class="token operator">=</span> <span class="token punctuation">{</span>
+            <span class="token string">"order"</span><span class="token punctuation">:</span> <span class="token string">"asc"</span><span class="token punctuation">,</span>
+            <span class="token string">"page"</span><span class="token punctuation">:</span> page<span class="token punctuation">,</span>
+            <span class="token string">"per_page"</span><span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+            <span class="token string">"search"</span><span class="token punctuation">:</span> query<span class="token punctuation">,</span>
+            <span class="token string">"sort"</span><span class="token punctuation">:</span> <span class="token string">"name"</span><span class="token punctuation">,</span>
+            <span class="token string">"types[]"</span><span class="token punctuation">:</span> <span class="token string">"well"</span>
+        <span class="token punctuation">}</span>
+        r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> params<span class="token operator">=</span>params<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">)</span>
+        resp <span class="token operator">=</span> r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>resp<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+            output_list<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>resp<span class="token punctuation">)</span>
+            page <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">break</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span>asset<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span> <span class="token keyword">for</span> asset <span class="token keyword">in</span> output_list<span class="token punctuation">]</span>
+
+query_corva_wells<span class="token punctuation">(</span><span class="token string">"My_Test_Well"</span><span class="token punctuation">)</span></code></pre><h2 id="d7cba728-2dc2-4195-8c90-5569d074af0c" class="">Assets in Corva<strong>:</strong></h2><h3 id="e17b7542-0420-4267-bceb-7f7077a79fd1" class="">Fetching assets in Corva</h3><p id="b90fbc9c-46eb-48d1-8e96-c3b1491a80e7" class="">To make a call for assets in Corva, users can access this at the following endpoint: <a href="https://api.corva.ai/v1/assets">https://api.corva.ai/v1/assets</a></p><p id="a7dadf78-14b0-4607-adf4-cdd97d832863" class="">There are multiple asset types: rigs, wells, programs, and companies.
+In order to search for a specific kind, we&#x27;ll pass the type we want as a query parameter like in the example below.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="613568e6-e969-4eb5-bb4b-6409a9936f31" class="code"><code>url <span class="token operator">=</span> API_BASE_URL<span class="token operator">+</span><span class="token string">"/v2/assets"</span>
+params <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'types'</span><span class="token punctuation">:</span> <span class="token string">'well'</span><span class="token punctuation">,</span>
+    <span class="token string">'per_page'</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+    <span class="token string">'page'</span><span class="token punctuation">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">,</span> params<span class="token operator">=</span>params<span class="token punctuation">)</span></code></pre><p id="3b921ec1-4676-45b5-b735-02036d1d7dfe" class="">When fetching assets from Corva, we must pass in our api key to the headers and can choose to either encode our query parameters into the url itself, or pass in a dict of parameters (if using the requests library). When we make the call, we see the following output below.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="7d9f6dbc-6127-4142-b2b5-ab00635d7d80" class="code"><code>url <span class="token operator">=</span> API_BASE_URL<span class="token operator">+</span><span class="token string">"/v2/assets"</span>
+params <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'types'</span><span class="token punctuation">:</span> <span class="token string">'well'</span><span class="token punctuation">,</span>
+    <span class="token string">'per_page'</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+    <span class="token string">'page'</span><span class="token punctuation">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">,</span> params<span class="token operator">=</span>params<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">'data'</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="8f8b3c2c-9faf-42a3-b331-0f184208e5ba" class="code"><code><span class="token comment"># example of creating a dataframe from the api call results</span>
+pd<span class="token punctuation">.</span>json_normalize<span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">'data'</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre><p id="ad406b8c-a88f-4889-9ffd-45f56a43e9d6" class="">Certain api calls are paginated in corva, others are not. Regardless, there is a maximum record limit for ALL collections that no requests return more than 10,000 records at a time. Therefore, for making calls on multiple pages&#x27; worth of assets, we can create an iterator to check for existence of records. If records exist, store the results. If records do not exist, break out of the iterator, such as in the example below.</p><div id="fa9b678a-6902-4395-98de-962064987681" class="column-list"><div id="8475e6e3-654d-4679-ad18-788bf8e8451e" style="width:93.75%" class="column"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="b7878d83-eaad-44ed-9dc8-20c4b8761a7d" class="code"><code><span class="token keyword">def</span> <span class="token function">fetch_all_assets</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    output <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    page <span class="token operator">=</span> <span class="token number">1</span>
+    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Fetching data for page {}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        
+        params <span class="token operator">=</span> <span class="token punctuation">{</span>
+            <span class="token string">'types'</span><span class="token punctuation">:</span> <span class="token string">'well'</span><span class="token punctuation">,</span>
+            <span class="token string">'per_page'</span><span class="token punctuation">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+            <span class="token string">'page'</span><span class="token punctuation">:</span> page
+        <span class="token punctuation">}</span>
+        
+        r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">,</span> params<span class="token operator">=</span>params<span class="token punctuation">)</span>
+        resp <span class="token operator">=</span> r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>resp<span class="token punctuation">[</span><span class="token string">'data'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>resp<span class="token punctuation">[</span><span class="token string">'data'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+            output<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>resp<span class="token punctuation">[</span><span class="token string">'data'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            page <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">break</span>
+    <span class="token keyword">return</span> pd<span class="token punctuation">.</span>json_normalize<span class="token punctuation">(</span>output<span class="token punctuation">)</span></code></pre><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="697fb9db-f041-4cb6-a4cc-e0eef22b080a" class="code"><code>url <span class="token operator">=</span> API_BASE_URL<span class="token operator">+</span><span class="token string">"/v2/assets"</span>
+
+df <span class="token operator">=</span> fetch_all_assets<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+
+df<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre></div><div id="d2ce4838-cb40-4bb8-9e61-9d9591030c19" style="width:6.25%" class="column"><p id="55de2461-4592-45cf-8721-c386182dd144" class="">
+</p></div></div><p id="093f1e35-9948-46ad-b34f-aebbaf96ad69" class="">We can see in the example above, that we were able to pull data from multiple pages, and that the function broke out of the infinite loop when no data was left to pull. This is extremely helpful to locate assets in Corva. Notably, having asset_id is often the most crucial information required to be able to run queries on other collections.</p><h3 id="db8784d9-c23a-4697-ab87-6945ed5f4ae7" class="">Fetching Rigs in Corva</h3><p id="a96387c6-b4b4-4336-b5e7-2de87eb62551" class="">The concept of a rig in Corva is similar to that of an asset. Essentially rig is a parent of well, but both are assets. Therefore, we can find rigs in Corva in a very similar manner.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="e55dad19-d2d0-4ce6-8323-b8b8bee68726" class="code"><code>url <span class="token operator">=</span> API_BASE_URL<span class="token operator">+</span><span class="token string">"/v2/assets"</span>
+params <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'types'</span><span class="token punctuation">:</span> <span class="token string">'rig'</span><span class="token punctuation">,</span>
+    <span class="token string">'per_page'</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+    <span class="token string">'page'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token string">'status'</span><span class="token punctuation">:</span> <span class="token string">'active'</span>
+<span class="token punctuation">}</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">,</span> params<span class="token operator">=</span>params<span class="token punctuation">)</span>
+
+pd<span class="token punctuation">.</span>json_normalize<span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">'data'</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre><p id="75c45681-92c0-47e2-ba76-33c0392f34e1" class="">Just like in the previous example, we can see here that little code changes are required to find rigs in Corva...notice here that I passed in status=active as a query parameter to pull only active rigs. The same thing can be done with other indexed parameters.</p><h2 id="7a1aebe5-a0d6-4786-968f-c35a38eea924" class="">Drilling Data in Corva</h2><h3 id="8aeb6b0d-9b53-47da-b2e5-84d7dfa0c561" class="">Fetching Drilling Wits in Corva</h3><p id="e45cf15b-e21d-4f26-841e-97cf6fa818cc" class="">There are a series of multiple aggregations of live wits data in corva. In order of processing, these are:</p><ul id="374fbf41-5cea-451e-9f25-b57648d1567a" class="bulleted-list"><li>wits.raw</li></ul><ul id="aa463e2c-97b8-461a-ba83-718d719454cd" class="bulleted-list"><li>wits</li></ul><ul id="c6dfb8ba-b206-48b1-9564-a1a5ae23d171" class="bulleted-list"><li>wits.summary-1m</li></ul><ul id="2dc8bea5-0cf9-4a5b-af0a-75794d61e045" class="bulleted-list"><li>wits.summary-30m</li></ul><ul id="80ddd800-5295-49ca-a227-a9c59a5f11c6" class="bulleted-list"><li>wits.summary-6h</li></ul><p id="3dbb8655-d68e-4b4a-af93-ce48446f6a03" class="">In order pull wits from Corva, we will need to supply a well asset_id in addition to any extra query parameters. Keep in mind that query limits are 10,000 records for each collection, so if crawling data for an entire well, we will need to use another iterator. This time, we&#x27;ll focus on using timestamps because wits data is not paginated in the same way that the assets collection is.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="4594fee3-4865-4523-884a-9aa5aafc6888" class="code"><code><span class="token comment"># function to fetcn wits from a provided asset id</span>
+<span class="token keyword">def</span> <span class="token function">fetch_wits</span><span class="token punctuation">(</span>asset_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    url <span class="token operator">=</span> <span class="token string">"https://api.corva.ai/v1/data/corva/wits.summary-1m"</span>  <span class="token comment"># base url endpoint</span>
+    timestamp <span class="token operator">=</span> <span class="token number">0</span>  <span class="token comment"># initialize timestamp </span>
+    output <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>  <span class="token comment"># create a placeholder list to store results</span>
+    <span class="token comment"># infinite loop b/c we don't know how much data is out there (dynamic)</span>
+    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        <span class="token comment"># api query parameters</span>
+        param <span class="token operator">=</span> <span class="token punctuation">{</span>
+            <span class="token string">'asset_id'</span><span class="token punctuation">:</span> asset_id<span class="token punctuation">,</span>
+            <span class="token string">'limit'</span><span class="token punctuation">:</span> <span class="token number">1000</span><span class="token punctuation">,</span>
+            <span class="token string">'query'</span><span class="token punctuation">:</span> <span class="token string">r"{timestamp#gt#"</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>timestamp<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"}"</span><span class="token punctuation">,</span>  <span class="token comment"># we will increment timestamp with each iteration</span>
+            <span class="token string">'sort'</span><span class="token punctuation">:</span> <span class="token string">r"{timestamp: 1}"</span>  <span class="token comment"># sorting ascending is super important to crawl asset data </span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Checking for next 1000 records greater than {}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>pd<span class="token punctuation">.</span>to_datetime<span class="token punctuation">(</span>timestamp<span class="token punctuation">,</span> unit<span class="token operator">=</span><span class="token string">'s'</span><span class="token punctuation">)</span>\
+                                                                      <span class="token punctuation">.</span>strftime<span class="token punctuation">(</span><span class="token string">'%y-%m-%d %H:%M:%S'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token comment"># crank out api call</span>
+        r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">,</span> params<span class="token operator">=</span>param<span class="token punctuation">)</span>
+        resp <span class="token operator">=</span> r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># if data is present, go ahead and store results....take last timestamp for query</span>
+        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>resp<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+            output<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>resp<span class="token punctuation">)</span>
+            timestamp <span class="token operator">=</span> resp<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'timestamp'</span><span class="token punctuation">]</span>
+        <span class="token comment"># if no results (empty list), then break out of loop...all data is fetched</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">break</span>
+            
+    <span class="token comment"># optional...could have returned output as a json array, but normalize into a dataframe in this step</span>
+    <span class="token keyword">return</span> pd<span class="token punctuation">.</span>json_normalize<span class="token punctuation">(</span>output<span class="token punctuation">)</span></code></pre><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="c8852ff9-aef3-4d07-8be1-5f4c3d8b705c" class="code"><code><span class="token comment"># grabbing a sample asset from above</span>
+asset_id <span class="token operator">=</span> df<span class="token punctuation">.</span>iloc<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span>
+asset_id</code></pre><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="27b0fe63-a21c-4522-bce3-c428ef9984e2" class="code"><code>df_wits_1m <span class="token operator">=</span> fetch_wits<span class="token punctuation">(</span>asset_id<span class="token punctuation">)</span>
+df_wits_1m<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre><h3 id="7092159e-7c86-4ed2-8135-250584b46f92" class="">Fetching metrics in Corva</h3><p id="ff048ff5-8bc8-438b-a059-24e7edd19632" class="">Corva&#x27;s metrics engine is a commonly interfaced application for getting high level aggregations of performance information. It can be interfaced at the following endpoint:</p><ul id="216636d8-f94c-4c3f-bc9d-4b136d10ebde" class="bulleted-list"><li><a href="https://api.corva.ai/v2/corva/data/metrics">https://api.corva.ai/v2/corva/data/metrics</a><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="2e6ffe01-a42d-46d4-9980-764848aa32e4" class="code"><code>url <span class="token operator">=</span> API_BASE_URL<span class="token operator">+</span><span class="token string">"/v1/data/corva/metrics"</span>
+params <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'asset_id'</span><span class="token punctuation">:</span> asset_id<span class="token punctuation">,</span>
+    <span class="token string">'limit'</span><span class="token punctuation">:</span> <span class="token number">100</span>
+<span class="token punctuation">}</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">,</span> params<span class="token operator">=</span>params<span class="token punctuation">)</span>
+
+pd<span class="token punctuation">.</span>json_normalize<span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre></li></ul><p id="56e2f842-24e8-4f47-a1fe-6f3cc5795a40" class="">We can see that data.key shows the performance metric and data.key shows the aggregation level. If we want to refine our search, we can try something like below.</p><ul id="7e39ae7d-1396-4943-88cb-a21590973681" class="bulleted-list"><li><a href="https://api.corva.ai/v2/corva/data/metrics">https://api.corva.ai/v2/corva/data/metrics</a><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="5400d939-f31f-4d3d-a005-9ceb6182772e" class="code"><code>url <span class="token operator">=</span> API_BASE_URL<span class="token operator">+</span><span class="token string">"/v1/data/corva/metrics"</span>
+params <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'limit'</span><span class="token punctuation">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+    <span class="token string">'query'</span><span class="token punctuation">:</span> <span class="token string">r"{data.key#eq#'rop'}AND{data.type#eq#'well_section'}"</span>
+<span class="token punctuation">}</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">,</span> params<span class="token operator">=</span>params<span class="token punctuation">)</span>
+
+pd<span class="token punctuation">.</span>json_normalize<span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre></li></ul><p id="a9bf201c-2df3-46b5-a00d-fc054add31c1" class="">In this case, we were able to pull a list of rop metrics by well section for 100 assets. Like in the other examples, we can actually create an iterator if we&#x27;d like to pull more than 10,000 records. Additionally, we could add a query for timestamp based metrics to pull based on the last n-days, for example.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="c12414e7-0f70-4f18-b64c-89267ca7760f" class="code"><code>url <span class="token operator">=</span> API_BASE_URL<span class="token operator">+</span><span class="token string">"/v1/data/corva/metrics"</span>
+params <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'limit'</span><span class="token punctuation">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+    <span class="token string">'query'</span><span class="token punctuation">:</span> <span class="token string">r"{data.key#eq#'rop'}AND{data.type#eq#'well_section'}AND{timestamp#gte#1599724500}"</span>
+<span class="token punctuation">}</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">,</span> params<span class="token operator">=</span>params<span class="token punctuation">)</span>
+
+
+df_metrics <span class="token operator">=</span> pd<span class="token punctuation">.</span>json_normalize<span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+df_metrics<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre><p id="3c844fb9-19f7-4c8c-84f9-da7adf674ff0" class="">We can join multiple results on one another based on asset_id.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="679181ad-d09e-4c3e-a950-5928395b1687" class="code"><code>df_metrics <span class="token operator">=</span> df_metrics<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token string">'asset_id'</span><span class="token punctuation">,</span> <span class="token string">'data.key'</span><span class="token punctuation">,</span> <span class="token string">'data.type'</span><span class="token punctuation">,</span> <span class="token string">'data.well_section'</span><span class="token punctuation">,</span> <span class="token string">'data.value'</span><span class="token punctuation">]</span><span class="token punctuation">]</span>\
+<span class="token punctuation">.</span>merge<span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'parent_asset_name'</span><span class="token punctuation">,</span> <span class="token string">'status'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> left_on<span class="token operator">=</span><span class="token string">'asset_id'</span><span class="token punctuation">,</span> right_on<span class="token operator">=</span><span class="token string">'id'</span><span class="token punctuation">,</span> how<span class="token operator">=</span><span class="token string">'left'</span><span class="token punctuation">)</span>
+
+df_metrics<span class="token punctuation">.</span>drop<span class="token punctuation">(</span>columns<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+df_metrics<span class="token punctuation">.</span>columns <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'asset_id'</span><span class="token punctuation">,</span> <span class="token string">'key'</span><span class="token punctuation">,</span> <span class="token string">'type'</span><span class="token punctuation">,</span> <span class="token string">'well_section'</span><span class="token punctuation">,</span> <span class="token string">'value'</span><span class="token punctuation">,</span> <span class="token string">'well_name'</span><span class="token punctuation">,</span> <span class="token string">'rig'</span><span class="token punctuation">,</span> <span class="token string">'status'</span><span class="token punctuation">]</span>
+df_metrics<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre><h2 id="b7313a85-89ad-4006-9316-4a87239786eb" class="">Completions Data in Corva</h2><p id="d7002449-dda5-4d74-80f3-aeae762c3a24" class="">To locate active completions assets, it&#x27;s recommended to fetch the frac crews from the completions collection and then using that information to find the active assets. Due to the way Corva is designed, there is no differentiation between drilling and frac assets in Corva because they can be either or. Therefore, we cannot simply query frac assets directly from the assets call. By fetching the frac fleets and then finding the assets affiliated with those fleets, we can query completions assets in Corva.</p><p id="931cb857-a83f-44ad-a270-0ee46201eaf6" class=""><strong>FAQ: How do we know what the current activity of the asset is?</strong> &lt;br&gt;
+Because of the way staging works, an asset can either be wirelining, frac&#x27;ing, or in drillout for the completions platform. There is no concept of current activity located in the asset information itself. Rather, Corva&#x27;s applications check the frac, drillout, and wireline collections for each asset to see which one is currently populating data. The one that is currently populating data is associated with that current activitiy. For example if an asset&#x27;s frac data is currently updating, but wireline is not, the platform&#x27;s applications will deduce that the application is currently frac&#x27;ing and respond accordingly.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="fb14c8d0-8262-442a-a791-a4ffd1adac24" class="code"><code><span class="token comment"># finding frac fleets for company id</span>
+url <span class="token operator">=</span> API_BASE_URL <span class="token operator">+</span> <span class="token string">"v2/frac_fleets?company={}&amp;current_pad&amp;fields[]=frac_fleet.name&amp;fields[]=frac_fleet.company&amp;fields[]=frac_fleet.pads&amp;fields[]=frac_fleet.program&amp;fields[]=frac_fleet.current_pad_id&amp;fields[]=frac_fleet.pad_frac_fleets&amp;order=asc&amp;page=1&amp;per_page=20&amp;program&amp;sort=name"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>company_id<span class="token punctuation">)</span>
+frac <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">,</span> params<span class="token operator">=</span>params<span class="token punctuation">)</span>
+frac_fleets_df <span class="token operator">=</span> pd<span class="token punctuation">.</span>json_normalize<span class="token punctuation">(</span>frac<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">'data'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+frac_fleets_df<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="cee8efd9-3116-4790-8741-e11efbaa70d1" class="code"><code><span class="token comment"># getting current pad for current frac fleet</span>
+current_pad_id <span class="token operator">=</span> frac_fleets_df<span class="token punctuation">[</span>frac_fleets_df<span class="token punctuation">[</span><span class="token string">'attributes.name'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token builtin">str</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">str</span><span class="token punctuation">.</span>contains<span class="token punctuation">(</span><span class="token string">'viewer'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">.</span>iloc<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>\
+<span class="token punctuation">[</span><span class="token string">'attributes.current_pad_id'</span><span class="token punctuation">]</span></code></pre><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="85566a43-c00b-410c-8f65-45e3ec2a9161" class="code"><code><span class="token comment"># creating list of assets from current pad (using a viewer asset for this particular example)</span>
+url <span class="token operator">=</span> API_BASE_URL <span class="token operator">+</span> <span class="token string">"/v2/pads/{}?fields[]=pad.name&amp;fields[]=pad.company&amp;fields[]=pad.wells&amp;fields[]=pad.active_wells&amp;fields[]=pad.lon_lat"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>current_pad_id<span class="token punctuation">)</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">)</span>
+pad_assets <span class="token operator">=</span> pd<span class="token punctuation">.</span>json_normalize<span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">'included'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">'attributes.asset_id'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>dropna<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>tolist<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+pad_assets</code></pre><h3 id="7fc0c0dc-66a5-4ecc-bd60-e53a78be435a" class="">Wireline data in Corva</h3><p id="e0ccdbed-aab4-463c-a3b6-7594a119d67c" class="">The following wireline collections are available in corva listed in order from least processed/aggregated to most processed/aggregated:</p><ul id="b51a5e51-5795-433b-b43a-08a8d0facec6" class="bulleted-list"><li>wireline.wits.raw</li></ul><ul id="ab76064c-1adf-4f5c-8edc-bcb5535b4137" class="bulleted-list"><li>wireline.wits</li></ul><p id="3f57a4ab-4f47-45d2-8a39-ee72fe5e657b" class="">To query the wireline collection, you will need to pass in an asset_id and any other query parameters.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="9f8a7fb6-f646-4f49-8805-98e3127a305b" class="code"><code>url <span class="token operator">=</span> API_BASE_URL <span class="token operator">+</span> <span class="token string">"/v2/data/corva/wireline.wits"</span>
+params <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'asset_id'</span><span class="token punctuation">:</span> pad_assets<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment"># grab first instance of asset in list as an example</span>
+    <span class="token string">'limit'</span><span class="token punctuation">:</span> <span class="token number">100</span>
+<span class="token punctuation">}</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> params<span class="token operator">=</span>params<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">)</span>
+
+pd<span class="token punctuation">.</span>json_normalize<span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">'data'</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre><p id="896edbd1-82ef-4eca-a219-8b4f733bf79f" class="">Similar to the drilling wits sections above, we can query by timestamp and/or stage_number of whatever other characteristics we&#x27;d like in order to achieve a filtered data set. Additionally, we can crawl an asset&#x27;s entire dataset by using an iterator function like in the drilling wits example.</p><h3 id="4c4abb77-ede0-4220-811c-4d34bbf84cbd" class="">Frac data in Corva</h3><p id="038a99ab-88af-48de-b2e7-b15673f6479f" class="">The following frac collections are available in corva listed in order from least processed/aggregated to most processed/aggregated:</p><ul id="66bfdb1c-5690-48fa-b586-85ad14eaaf22" class="bulleted-list"><li>completion.wits.raw</li></ul><ul id="30a2d62e-409c-4199-8dfa-ed4e6cbd952d" class="bulleted-list"><li>completion.wits</li></ul><ul id="deda5e3e-4982-42d2-81bf-2ac875f6bf4d" class="bulleted-list"><li>completion.wits.summary-10s</li></ul><ul id="6abf1f1b-dbfc-4957-b6db-14f5a9f52f26" class="bulleted-list"><li>completion.wits.summary-1m</li></ul><ul id="e8ee3047-db3d-4880-ba0c-a11262c0f3d5" class="bulleted-list"><li>completion.wits.summary-30m</li></ul><p id="c8f14341-b123-4efc-bd2c-d1bb0d05018d" class="">To query the completion collection, you will need to pass in an asset_id and any other query parameters.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="240cd1bf-1027-4b7e-a043-7df0e0235e05" class="code"><code>url <span class="token operator">=</span> API_BASE_URL <span class="token operator">+</span> <span class="token string">"/v1/data/corva/completion.wits"</span>
+params <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'asset_id'</span><span class="token punctuation">:</span> pad_assets<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment"># grab first instance of asset in list as an example</span>
+    <span class="token string">'limit'</span><span class="token punctuation">:</span> <span class="token number">100</span>
+<span class="token punctuation">}</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> params<span class="token operator">=</span>params<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">)</span>
+
+pd<span class="token punctuation">.</span>json_normalize<span class="token punctuation">(</span>r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">'data'</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre><p id="36ced19a-7b5b-44ea-b5ae-ddeacf7b762b" class="">Similar to the drilling wits sections above, we can query by timestamp and/or stage_number of whatever other characteristics we&#x27;d like in order to achieve a filtered data set. Additionally, we can crawl an asset&#x27;s entire dataset by using an iterator function like in the drilling wits example.</p><h3 id="24ab3d4d-9046-4aa1-af27-1392c2826d0f" class="">Drillout data in Corva</h3><p id="3b78bc8c-3cc7-4cec-bf29-d6b1e23ee2da" class="">The following drillout collections are available in corva listed in order from least processed/aggregated to most processed/aggregated:</p><ul id="fadd28c1-13ea-46b4-8ff2-17d4c2123ec8" class="bulleted-list"><li>drillout.wits.raw</li></ul><ul id="33bd32b1-247b-47da-a41d-ae445039187b" class="bulleted-list"><li>drillout.wits</li></ul><ul id="984a4a2b-bf50-4e45-ac24-f0deebf20341" class="bulleted-list"><li>drillout.wits.summary-1m</li></ul><ul id="9bbd9a55-126f-4211-8033-5f913dfa99d3" class="bulleted-list"><li>drillout.wits.summary-30m</li></ul><ul id="ce8391d1-eda4-4aba-b51a-2ce4a48fbd05" class="bulleted-list"><li>drillout.wits.summary-6h</li></ul><p id="e32a9f70-2840-4ee6-846a-ddb53d0ec100" class="">To query the drillout collection, you will need to pass in an asset_id and any other query parameters.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="f69b05f8-3013-41ef-87af-431d77766a65" class="code"><code>url <span class="token operator">=</span> API_BASE_URL <span class="token operator">+</span> <span class="token string">"/v1/data/corva/drillout.wits"</span>
+params <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'asset_id'</span><span class="token punctuation">:</span> pad_assets<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment"># grab first instance of asset in list as an example</span>
+    <span class="token string">'limit'</span><span class="token punctuation">:</span> <span class="token number">100</span>
+<span class="token punctuation">}</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> params<span class="token operator">=</span>params<span class="token punctuation">,</span> headers<span class="token operator">=</span>auth<span class="token punctuation">)</span></code></pre><p id="5cd7b527-fe96-4385-b1b6-6421dc094cba" class="">Similar to the drilling wits sections above, we can query by timestamp and/or stage_number of whatever other characteristics we&#x27;d like in order to achieve a filtered data set. Additionally, we can crawl an asset&#x27;s entire dataset by using an iterator function like in the drilling wits example.</p><h2 id="cd72eafb-e98e-48b8-a301-ef827fef7481" class="">More information</h2><p id="b16c7b97-3def-4387-b081-00acc623b1c5" class="">More information on Corva endpoints can be found at the swagger api documentation located here: <a href="https://api.corva.ai/documentation/index.html?urls.primaryName=API%20V2%20Docs">https://api.corva.ai/documentation/index.html?urls.primaryName=API V2 Docs</a></p><p id="528885d5-082a-4939-9777-0416d9a3b93d" class="">Additionally, a list of endpoints can be downloaded here: <a href="https://www.dropbox.com/s/9oc30mm6mjy433t/api%20data%20endpoint.pdf?dl=1">https://www.dropbox.com/s/9oc30mm6mjy433t/api data endpoint.pdf?dl=1</a></p></div></article></body></html>
